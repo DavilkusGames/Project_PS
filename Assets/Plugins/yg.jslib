@@ -55,11 +55,11 @@
         callbacks: {
             onClose: function(wasShown) {
                 console.log("Ad shown");
-                myGameInstance.SendMessage("_yandexGames", "AdShown");
+                myGameInstance.SendMessage("_yandexGames", "FullscreenAdClosed");
             },
             onError: function(error) {
                 console.log("Ad error:", error);
-                myGameInstance.SendMessage("_yandexGames", "AdShown");
+                myGameInstance.SendMessage("_yandexGames", "FullscreenAdClosed");
             }
         }
     })
@@ -75,7 +75,7 @@
             },
             onClose: () => {
                 console.log('Rewarded ad closed.');
-                myGameInstance.SendMessage("_yandexGames", "RewardedClosed");
+                myGameInstance.SendMessage("_yandexGames", "RewardedAdClosed");
             }, 
             onError: (e) => {
                 console.log('Error while open rewarded ad:', e);

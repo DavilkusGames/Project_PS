@@ -40,6 +40,31 @@ public class YandexGames : Singleton<YandexGames>
         if (!Application.isEditor) StartCoroutine(nameof(SDKInit));
     }
 
+    public void DataSaved()
+    {
+
+    }
+
+    public void DataLoaded(string data)
+    {
+
+    }
+
+    public void FullscreenAdClosed()
+    {
+
+    }
+
+    public void Rewarded()
+    {
+
+    }
+
+    public void RewardedAdClosed()
+    {
+
+    }
+
     private IEnumerator SDKInitProgress()
     {
         yield return new WaitForSeconds(0.5f);
