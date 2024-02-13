@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class LanguageManager : Singleton<LanguageManager>
 {
+    [System.Serializable]
     public class TranslatedText
     {
         public TMP_Text txt;
@@ -15,6 +16,6 @@ public class LanguageManager : Singleton<LanguageManager>
 
     private void Start()
     {
-        foreach (var tTxt in translatedTexts) tTxt.translatedStrs.Insert(0, tTxt.txt.text);
+        //foreach (var tTxt in translatedTexts) tTxt.translatedStrs.Insert(0, tTxt.txt.text);
     }
 }
