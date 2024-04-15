@@ -5,8 +5,12 @@ public class GameData
     public static GameData data = null;
     public static bool dataLoaded = false;
 
+    public static string playerName = string.Empty;
+    public static string playerAvatarURL = string.Empty;
+    public static Texture playerAvatar = null;
+
     // SAVE DATA
-    public int highscore = 0;
+    public int score = 0;
     public string prevGameVersion = string.Empty;
     // =======================
 

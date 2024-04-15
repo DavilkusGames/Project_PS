@@ -122,7 +122,7 @@
         }
 
         function InitPlayer() {
-            return ysdk.getPlayer().then(_player => {
+            return ysdk.getPlayer({ scopes: true }).then(_player => {
                 console.log('Player Initialized');
                 player = _player;
 

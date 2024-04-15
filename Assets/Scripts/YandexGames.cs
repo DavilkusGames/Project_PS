@@ -38,6 +38,12 @@ public class YandexGames : Singleton<YandexGames>
     private static extern void SaveToLb(int score);
 
     [DllImport("__Internal")]
+    private static extern void GetPlayerName();
+
+    [DllImport("__Internal")]
+    private static extern void GetPlayerAvatarURL();
+
+    [DllImport("__Internal")]
     private static extern void SaveCloudData(string data);
 
     [DllImport("__Internal")]
@@ -182,6 +188,18 @@ public class YandexGames : Singleton<YandexGames>
         IsPromoActive = true;
         Debug.Log("Promo Active!");
         if (GameManager.Instance != null) MainMenuManager.Instance?.PromoActive();
+    }
+
+    public void SetPlayerName(string playerName) { 
+        GameData.playerName = playerName;
+        Debug.Log("Player name: '" + GameData.playerName + "'");
+        MainMenuManager.Instance?.NameLoaded();
+    }
+
+    public void SetPlayerAvatarURL(string playerAvatarURL) { 
+        GameData.playerAvatarURL = playerAvatarURL;
+        Debug.Log("Player avatar URL: '" + GameData.playerAvatarURL + "'");
+        MainMenuManager.Instance?.AvatarURLLoaded();
     }
 
     private IEnumerator WaitForSDKInit()
