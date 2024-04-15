@@ -55,11 +55,11 @@
         callbacks: {
             onClose: function(wasShown) {
                 console.log("Ad shown");
-                myGameInstance.SendMessage("_yandexGames", "FullscreenAdClosed");
+                myGameInstance.SendMessage("_yandexGames", "AdShown");
             },
             onError: function(error) {
                 console.log("Ad error:", error);
-                myGameInstance.SendMessage("_yandexGames", "FullscreenAdClosed");
+                myGameInstance.SendMessage("_yandexGames", "AdShown");
             }
         }
     })
@@ -75,7 +75,7 @@
             },
             onClose: () => {
                 console.log('Rewarded ad closed.');
-                myGameInstance.SendMessage("_yandexGames", "RewardedAdClosed");
+                myGameInstance.SendMessage("_yandexGames", "RewardedClosed");
             }, 
             onError: (e) => {
                 console.log('Error while open rewarded ad:', e);
@@ -84,8 +84,16 @@
     })
   },
 
+  CheckPromoFlag : function () {
+    ysdk.getFlags().then(flags => {
+        if (flags.promo_active === "True") {
+            myGameInstance.SendMessage("_yandexGames", "PromoActive");
+        }
+    });
+  },
+
   SaveToLb : function (score) {
-    lb.setLeaderboardScore('score', score);
+    lb.setLeaderboardScore('nmazescore', score);
   },
 
   SaveCloudData : function (data) {

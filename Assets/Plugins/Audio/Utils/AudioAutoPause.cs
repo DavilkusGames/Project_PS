@@ -42,7 +42,7 @@ namespace Plugins.Audio.Utils
 
                 _isFocused = true;
 
-                Debug.Log("UnPause Audio");
+                Debug.Log("Unpause Audio");
             }
         }
 

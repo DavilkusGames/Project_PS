@@ -11,14 +11,12 @@ namespace Plugins.Audio.Core
         public abstract float Time { get; set; }
         public abstract bool IsPlaying { get; }
 
-        public abstract void Play(string key, float time);
+        public abstract void Play(string key);
         public abstract void PlayOneShot(string key);
         public abstract void Stop();
-        public abstract void Pause();
-        public abstract void UnPause();
 
-        public virtual void OnGlobalAudioUnpaused(){}
-        public virtual void OnGlobalAudioPaused(){}
+        public virtual void OnAudioUnpaused(){}
+        public virtual void OnAudioPaused(){}
         
         public virtual void Update(){}
 

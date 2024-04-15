@@ -11,6 +11,11 @@ namespace Plugins.Audio.Core
         
         private bool _isFocused = true;
         private bool _isAds = false;
+
+        public static event Action OnPause;
+        public static event Action OnUnpause;
+
+        public static bool IsAudioPause { get; private set; }
         
         private void Awake()
         {
@@ -21,22 +26,9 @@ namespace Plugins.Audio.Core
             }
 
             _instance = this;
+            IsAudioPause = false;
             DontDestroyOnLoad(gameObject);
         }
-
-#if UNITY_EDITOR
-        private void OnApplicationFocus(bool hasFocus)
-        {
-            if (hasFocus)
-            {
-                Focus();
-            }
-            else
-            {
-                UnFocus();
-            }
-        }
-#endif
 
         private void OnEnable()
         {
@@ -61,7 +53,7 @@ namespace Plugins.Audio.Core
 
             if (_isAds == false)
             {
-                AudioManagement.Instance.Unpause();
+                Unpause();
             }
         }
 
@@ -73,7 +65,7 @@ namespace Plugins.Audio.Core
             }
             
             _isFocused = false;
-            AudioManagement.Instance.Pause();
+            Pause();
         }
 
         public void PauseAudio()
@@ -84,7 +76,7 @@ namespace Plugins.Audio.Core
             }
 
             _isAds = true;
-            AudioManagement.Instance.Pause();
+            Pause();
         }
 
         public void UnpauseAudio()
@@ -98,8 +90,40 @@ namespace Plugins.Audio.Core
 
             if (_isFocused == true)
             {
-                AudioManagement.Instance.Unpause();
+                Unpause();
             }
+        }
+
+        private void Pause()
+        {
+            if (IsAudioPause == true)
+            {
+                return;
+            }
+            
+            AudioListener.pause = true;
+            WebAudio.Mute(true);
+
+            IsAudioPause = true;
+            
+            OnPause?.Invoke();
+            AudioManagement.Instance.Log("Pause Audio");
+        }
+        
+        private void Unpause()
+        {
+            if (IsAudioPause == false)
+            {
+                return;
+            }
+            
+            AudioListener.pause = false;
+            WebAudio.Mute(false);
+            
+            IsAudioPause = false;
+
+            OnUnpause?.Invoke();
+            AudioManagement.Instance.Log("Unpause Audio");
         }
     }
 }

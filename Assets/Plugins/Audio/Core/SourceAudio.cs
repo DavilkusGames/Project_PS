@@ -68,8 +68,8 @@ namespace Plugins.Audio.Core
             get => _currentProvider.Pitch;
             set
             {
-                _pitch = Mathf.Clamp(value, -0.5f, 3);
-                _currentProvider.Pitch = _pitch;
+                _pitch = value;
+                _currentProvider.Pitch = value;
             }
         }
 
@@ -81,10 +81,10 @@ namespace Plugins.Audio.Core
 
         public bool IsPlaying => _currentProvider.IsPlaying;
 
-        public void Play(string key, float time = 0)
+        public void Play(string key)
         {
             CurrentKey = key;
-            _currentProvider.Play(key, time);
+            _currentProvider.Play(key);
         }
 
         public void PlayOneShot(string key)
@@ -96,16 +96,6 @@ namespace Plugins.Audio.Core
         {
             CurrentKey = string.Empty;
             _currentProvider.Stop();
-        }
-
-        public void Pause()
-        {
-            _currentProvider.Pause();
-        }
-
-        public void UnPause()
-        {
-            _currentProvider.UnPause();
         }
 
 #if UNITY_EDITOR
@@ -175,14 +165,14 @@ namespace Plugins.Audio.Core
 
         private void OnEnable()
         {
-            AudioManagement.Instance.OnPause += OnAudioPaused;
-            AudioManagement.Instance.OnUnpause += OnAudioUnpaused;
+            AudioPauseHandler.OnPause += OnAudioPaused;
+            AudioPauseHandler.OnUnpause += OnAudioUnpaused;
         }
 
         private void OnDisable()
         {
-            AudioManagement.Instance.OnPause -= OnAudioPaused;
-            AudioManagement.Instance.OnUnpause -= OnAudioUnpaused;
+            AudioPauseHandler.OnPause -= OnAudioPaused;
+            AudioPauseHandler.OnUnpause -= OnAudioUnpaused;
         }
 
         private void Update()
@@ -192,12 +182,12 @@ namespace Plugins.Audio.Core
 
         private void OnAudioPaused()
         {
-            _currentProvider.OnGlobalAudioPaused();
+            _currentProvider.OnAudioPaused();
         }
 
         private void OnAudioUnpaused()
         {
-            _currentProvider.OnGlobalAudioUnpaused();
+            _currentProvider.OnAudioUnpaused();
         }
 
         [Serializable]

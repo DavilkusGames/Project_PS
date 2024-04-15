@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Plugins.Audio.Core
 {
-    public class StreamingAudioProvider : BaseUnityAudioProvider
+    public class StreamingAudioProvider : AudioProvider
     {
         public override float Volume
         {
@@ -29,10 +29,9 @@ namespace Plugins.Audio.Core
         public override float Time
         {
             get => _unitySource.time;
-            //set => _unitySource.time = value;
-            set => _unitySource.timeSamples = TimeToSamplesTime(value);
+            set => _unitySource.time = value;
         }
-
+        
         public override bool IsPlaying => _unitySource.isPlaying;
 
         private AudioSource _unitySource;
@@ -45,18 +44,19 @@ namespace Plugins.Audio.Core
         private bool _loadClip;
 
         private bool _beginPlaying = false;
-        private int _lastTimeSamples;
+        private float _lastTime;
         private SourceAudio _sourceAudio;
 
         private string _key;
-        private bool _isPaused;
-        
+
         public StreamingAudioProvider(SourceAudio sourceAudio)
         {
             _sourceAudio = sourceAudio;
-            _unitySource = CreateAudioSource(sourceAudio);
 
-            _unitySource.ignoreListenerPause = true;
+            if (_sourceAudio.TryGetComponent(out _unitySource) == false)
+            {
+                _unitySource = sourceAudio.gameObject.AddComponent<AudioSource>();
+            }
         }
         
         public override void RefreshSettings(SourceAudio.AudioSettings settings)
@@ -66,7 +66,8 @@ namespace Plugins.Audio.Core
             _unitySource.SetData(settings);
         }
 
-        public override void Play(string key, float time)
+
+        public override void Play(string key)
         {
             if (string.IsNullOrEmpty(key))
             {
@@ -79,7 +80,7 @@ namespace Plugins.Audio.Core
                 _sourceAudio.StopCoroutine(_playRoutine);
             }
             
-            _playRoutine = _sourceAudio.StartCoroutine(PlayRoutine(key, time));
+            _playRoutine = _sourceAudio.StartCoroutine(PlayRoutine(key));
         }
 
         public override void PlayOneShot(string key)
@@ -93,7 +94,7 @@ namespace Plugins.Audio.Core
             _playRoutine = _sourceAudio.StartCoroutine(PlayOneShotRoutine(key));
         }
 
-        private IEnumerator PlayRoutine(string key, float time)
+        private IEnumerator PlayRoutine(string key)
         {
             _loadClip = true;
             _clip = null;
@@ -110,25 +111,14 @@ namespace Plugins.Audio.Core
                 yield break;
             }
 
-            _isPaused = false;
             _unitySource.clip = _clip;
             _unitySource.Play();
             _beginPlaying = true;
-            _lastTimeSamples = TimeToSamplesTime(time);
+            _lastTime = 0;
 
-            _unitySource.timeSamples = TimeToSamplesTime(time);
             _loadClip = false;
             
             AudioManagement.Instance.Log("Start play audio: " + key);
-        }
-
-        private int TimeToSamplesTime(float time)
-        {
-            int sampleRate = AudioSettings.outputSampleRate;
-            
-            int samplesTime = Mathf.RoundToInt(time * sampleRate);
-
-            return samplesTime;
         }
 
         private IEnumerator PlayOneShotRoutine(string key)
@@ -148,37 +138,34 @@ namespace Plugins.Audio.Core
             AudioManagement.Instance.Log("Start play audio: " + key);
         }
 
+        public void Play()
+        {
+            if (_clip != null)
+            {
+                if (_beginPlaying)
+                {
+                    _unitySource.Stop();
+                }
+                
+                _unitySource.time = 0;
+                _unitySource.Play();
+                _beginPlaying = true;
+                _lastTime = 0;
+
+                AudioManagement.Instance.Log("Start play audio: " + _sourceAudio.CurrentKey);
+            }
+            else
+            {
+                _beginPlaying = false;
+            }
+        }
+
         public override void Stop()
         {
             _unitySource.Stop();
             _beginPlaying = false;
             Time = 0;
-            _lastTimeSamples = 0;
-        }
-
-        public override void Pause()
-        {
-            if (_isPaused)
-            {
-                return;
-            }
-            
-            _isPaused = true;
-            _lastTimeSamples = _unitySource.timeSamples;
-            _unitySource.Pause();
-        }
-
-        public override void UnPause()
-        {
-            if (_isPaused == false)
-            {
-                return;
-            }
-            
-            _isPaused = false;
-
-            _unitySource.UnPause();
-            _unitySource.timeSamples = _lastTimeSamples;
+            _lastTime = 0;
         }
 
         public override void Update()
@@ -197,28 +184,37 @@ namespace Plugins.Audio.Core
             {
                 _beginPlaying = false;
                 _sourceAudio.ClipFinished();
+                
+                /*if (Loop)
+                {
+                    AudioManagement.Instance.Log("Audio Loop: " + _sourceAudio.CurrentKey);
+
+                    _unitySource.Stop();
+                    _unitySource.Play();
+                    _lastTime = 0;
+                    _beginPlaying = true;
+                }*/
             }
         }
 
-        public override void OnGlobalAudioUnpaused()
+        public override void OnAudioUnpaused()
         {
-            if (_isFocus == false && _beginPlaying && _lastTimeSamples > 0 && _isPaused == false)
+            if (_isFocus == false && _beginPlaying && _lastTime > 0)
             {
-                _unitySource.UnPause();
-                _unitySource.timeSamples = _lastTimeSamples;
-                AudioManagement.Instance.Log(_sourceAudio.CurrentKey + " Play Last Time: " + _lastTimeSamples);
+                _unitySource.time = _lastTime;
+
+                AudioManagement.Instance.Log(_sourceAudio.CurrentKey + " Last Time: " + _lastTime);
             }
             
             _isFocus = true;
         }
 
-        public override void OnGlobalAudioPaused()
+        public override void OnAudioPaused()
         {
-            if (_isFocus && _beginPlaying && _isPaused == false)
+            if (_isFocus && _beginPlaying)
             {
-                _lastTimeSamples = _unitySource.timeSamples;
-                _unitySource.Pause();
-                AudioManagement.Instance.Log(_sourceAudio.CurrentKey + "Set Last Time: " + _lastTimeSamples);
+                _lastTime = _unitySource.time;
+                AudioManagement.Instance.Log(_sourceAudio.CurrentKey + "Set Last Time: " + _lastTime);
             }
             
             _isFocus = false;
