@@ -9,13 +9,30 @@ public class LanguageManager : Singleton<LanguageManager>
     public class TranslatedText
     {
         public TMP_Text txt;
-        public List<string> translatedStrs;
+        public string rusStr;
+        public string engStr;
+
+        public string additionalTxt = string.Empty;
     }
 
     public List<TranslatedText> translatedTexts;
+    private static bool IsRus = false;
 
-    private void Start()
+    public void SetLang(bool isRus)
     {
-        //foreach (var tTxt in translatedTexts) tTxt.translatedStrs.Insert(0, tTxt.txt.text);
+        IsRus = isRus;
+
+        for (int i = 0; i < translatedTexts.Count; i++)
+        {
+            translatedTexts[i].txt.text = (IsRus ? translatedTexts[i].rusStr : translatedTexts[i].engStr) +
+                translatedTexts[i].additionalTxt;
+        }
+    }
+
+    public void SetAdditionalText(int id, string txt)
+    {
+        translatedTexts[id].additionalTxt = txt;
+        translatedTexts[id].txt.text = (IsRus ? translatedTexts[id].rusStr : translatedTexts[id].engStr) + 
+            translatedTexts[id].additionalTxt;
     }
 }
