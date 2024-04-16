@@ -31,7 +31,7 @@ public class GameData
             dataLoaded = true;
             SaveData();
             Debug.Log("Local saved data not found. New save created.");
-            MainMenuManager.Instance?.DataLoaded(true);
+            MainMenuManager.Instance?.DataLoaded();
             return false;
         }
         else
@@ -48,7 +48,7 @@ public class GameData
             }
             else Debug.Log("LOCAL data loaded.");
             dataLoaded = true;
-            MainMenuManager.Instance?.DataLoaded(true);
+            MainMenuManager.Instance?.DataLoaded();
             return !dataSaved;
         }
     }
@@ -68,7 +68,7 @@ public class GameData
             {
                 Debug.Log("CLOUD data loaded.");
                 dataLoaded = true;
-                MainMenuManager.Instance?.DataLoaded(true);
+                MainMenuManager.Instance?.DataLoaded();
             }
         }
         else

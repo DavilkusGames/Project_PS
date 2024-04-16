@@ -101,7 +101,15 @@
   },
 
   GetPlayerAvatarURL : function () {
-    myGameInstance.SendMessage("--YANDEX_GAMES--", "SetPlayerAvatarURL", player.getPhoto(medium);
+    myGameInstance.SendMessage("--YANDEX_GAMES--", "SetPlayerAvatarURL", player.getPhoto("medium"));
+  },
+
+  AuthRequest : function () {
+    ysdk.auth.openAuthDialog().then(() => {
+                    myGameInstance.SendMessage("--YANDEX_GAMES--", "AuthSuccessful");
+                }).catch(() => {
+                    // Игрок не авторизован.
+                });
   },
 
   SaveCloudData : function (data) {

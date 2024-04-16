@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class YandexGames : Singleton<YandexGames>
@@ -44,6 +45,9 @@ public class YandexGames : Singleton<YandexGames>
     private static extern void GetPlayerAvatarURL();
 
     [DllImport("__Internal")]
+    private static extern void AuthRequest();
+
+    [DllImport("__Internal")]
     private static extern void SaveCloudData(string data);
 
     [DllImport("__Internal")]
@@ -61,6 +65,7 @@ public class YandexGames : Singleton<YandexGames>
     private Action adCallback;
     private RewardedCallback rewardedCallback;
     private float prevAdShowTime = 0f;
+    private bool gameReadyCalled = false;
     private bool isRewarded = false;
 
     private void Start()
@@ -180,7 +185,11 @@ public class YandexGames : Singleton<YandexGames>
 
     public void GameInitialized()
     {
-        if (IsInit) GameReady();
+        if (IsInit && !gameReadyCalled)
+        {
+            GameReady();
+            gameReadyCalled = true;
+        }
     }
 
     public void PromoActive()
@@ -188,6 +197,25 @@ public class YandexGames : Singleton<YandexGames>
         IsPromoActive = true;
         Debug.Log("Promo Active!");
         if (GameManager.Instance != null) MainMenuManager.Instance?.PromoActive();
+    }
+
+    public void AuthBtnRequest()
+    {
+        if (!IsAuth) AuthRequest();
+    }
+
+    public void AuthSuccessful()
+    {
+        if (!AuthCheck())
+        {
+            Debug.Log("Auth check error!");
+            return;
+        }
+        IsAuth = true;
+        Debug.Log("Authorized successfully");
+        GameData.LoadData();
+        GetPlayerName();
+        GetPlayerAvatarURL();
     }
 
     public void SetPlayerName(string playerName) { 
@@ -219,5 +247,10 @@ public class YandexGames : Singleton<YandexGames>
         CheckPromoFlag();
 
         GameData.LoadData();
+        if (IsAuth)
+        {
+            GetPlayerName();
+            GetPlayerAvatarURL();
+        }
     }
 }

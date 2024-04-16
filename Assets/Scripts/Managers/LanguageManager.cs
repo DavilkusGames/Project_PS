@@ -18,6 +18,11 @@ public class LanguageManager : Singleton<LanguageManager>
     public List<TranslatedText> translatedTexts;
     private static bool IsRus = false;
 
+    private void Start()
+    {
+        if (Application.isEditor) SetLang(false);
+    }
+
     public void SetLang(bool isRus)
     {
         IsRus = isRus;

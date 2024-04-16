@@ -12,4 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4645132edefd4c74968a0c941a98fb89, type: 3}
   m_Name: Audio Database
   m_EditorClassIdentifier: 
-  _items: []
+  _items:
+  - Clip: {fileID: 8300000, guid: c0e337acb6b0c9c4fb07df136672fa87, type: 3}
+    Key: Missing
+    FolderPath: 
+    Name: 
+    Preload: 1
+    _id: d29ed763-f29f-4e22-bc00-7793555190ff
+  - Clip: {fileID: 8300000, guid: 650980fc44876444ba3f5e2987702fe2, type: 3}
+    Key: Numb
+    FolderPath: 
+    Name: 
+    Preload: 1
+    _id: 7c50610d-d176-4251-9144-13f20957ac7b
+  - Clip: {fileID: 8300000, guid: 661d3218cd45e5943b57e281883d90ec, type: 3}
+    Key: Aspiration
+    FolderPath: 
+    Name: 
+    Preload: 1
+    _id: 5b4f65f5-3813-4f6c-89cf-d4e3a32f6256
