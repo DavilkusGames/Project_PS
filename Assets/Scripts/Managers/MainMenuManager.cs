@@ -3,6 +3,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenuManager : Singleton<MainMenuManager>
@@ -14,8 +15,10 @@ public class MainMenuManager : Singleton<MainMenuManager>
 
     public GameObject loadingPanel;
     public TMP_Text verTxt;
+    public SelectLvlBtn[] selectLvlBtns;
 
     public SourceAudio ost;
+    private bool canvasAnimPlaying = false;
 
     public void DataLoaded()
     {
@@ -28,6 +31,14 @@ public class MainMenuManager : Singleton<MainMenuManager>
             GameData.SaveData();
         }
 
+        for (int i = 0; i < selectLvlBtns.Length; i++)
+        {
+            SelectLvlBtn.LvlState lvlState = SelectLvlBtn.LvlState.Locked;
+            if (GameData.data.cLevelId >= i) lvlState = SelectLvlBtn.LvlState.Unlocked;
+            if (GameData.data.cLevelId > i) lvlState = SelectLvlBtn.LvlState.Completed;
+            selectLvlBtns[i].Init(i, lvlState);
+        }
+
         if (YandexGames.IsAuth) Authorized();
     }
 
@@ -36,10 +47,27 @@ public class MainMenuManager : Singleton<MainMenuManager>
         playerNameTxt.text = GameData.playerName;
     }
 
+    public void SelectLevel(int levelId)
+    {
+        loadingPanel.SetActive(true);
+        GameManager.LvlId = levelId;
+        Invoke(nameof(LoadGameScene), 1f);
+    }
+
+    private void LoadGameScene()
+    {
+        SceneManager.LoadScene(GameManager.LvlId+1);
+    }
+
     public void AvatarURLLoaded()
     {
         if (GameData.playerAvatar == null) StartCoroutine(nameof(DownloadPlayerAvatar), GameData.playerAvatarURL);
         else playerAvatarImg.texture = GameData.playerAvatar;
+    }
+
+    public void OtherGamesReq()
+    {
+        Application.OpenURL(@"https://yandex.ru/games/developer/62555");
     }
 
     public void AuthRequestBtn()
@@ -75,7 +103,7 @@ public class MainMenuManager : Singleton<MainMenuManager>
 
     private void Start()
     {
-        Application.targetFrameRate = 30;
+        Application.targetFrameRate = 60;
         if (GameData.dataLoaded) DataLoaded();
         else if (Application.isEditor) GameData.LoadData();
         else loadingPanel.SetActive(true);

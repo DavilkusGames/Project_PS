@@ -201,7 +201,7 @@ public class YandexGames : Singleton<YandexGames>
 
     public void AuthBtnRequest()
     {
-        if (!IsAuth) AuthRequest();
+        if (!IsAuth && IsInit) AuthRequest();
     }
 
     public void AuthSuccessful()

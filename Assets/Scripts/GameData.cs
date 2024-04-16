@@ -10,6 +10,7 @@ public class GameData
     public static Texture playerAvatar = null;
 
     // SAVE DATA
+    public int cLevelId = 0;
     public int score = 0;
     public string prevGameVersion = string.Empty;
     // =======================

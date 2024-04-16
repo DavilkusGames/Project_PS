@@ -105,11 +105,17 @@
   },
 
   AuthRequest : function () {
-    ysdk.auth.openAuthDialog().then(() => {
+     if (player.getMode() === 'lite') {
+            // Игрок не авторизован.
+            ysdk.auth.openAuthDialog().then(() => {
                     myGameInstance.SendMessage("--YANDEX_GAMES--", "AuthSuccessful");
+                    initPlayer().catch(err => {
+                        // Ошибка при инициализации объекта Player.
+                    });
                 }).catch(() => {
                     // Игрок не авторизован.
                 });
+        }
   },
 
   SaveCloudData : function (data) {
