@@ -20,7 +20,7 @@ public class LanguageManager : Singleton<LanguageManager>
 
     private void Start()
     {
-        if (Application.isEditor) SetLang(false);
+        SetLang(IsRus);
     }
 
     public void SetLang(bool isRus)

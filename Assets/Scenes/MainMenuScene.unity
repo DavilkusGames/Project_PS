@@ -2333,7 +2333,7 @@ GameObject:
   - component: {fileID: 625539688}
   - component: {fileID: 625539689}
   m_Layer: 0
-  m_Name: --LANGUAGE_MANAGER--
+  m_Name: _languageManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2366,7 +2366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29ca4a58212bef44eb726897136bc9cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AlwaysKeepAlive: 1
+  AlwaysKeepAlive: 0
   translatedTexts:
   - txt: {fileID: 153572597}
     rusStr: POST SCRIPTUM
@@ -5769,8 +5769,8 @@ SceneRoots:
   m_Roots:
   - {fileID: 947340140}
   - {fileID: 1656031343}
-  - {fileID: 625539688}
   - {fileID: 42803674}
+  - {fileID: 625539688}
   - {fileID: 963194228}
   - {fileID: 1742000225}
   - {fileID: 1060949266}
