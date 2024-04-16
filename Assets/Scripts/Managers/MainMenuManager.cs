@@ -109,8 +109,8 @@ public class MainMenuManager : Singleton<MainMenuManager>
         else loadingPanel.SetActive(true);
 
         verTxt.text = "v." + Application.version;
-        ost.Play("Missing");
         if (GameData.playerName != string.Empty) NameLoaded();
         if (GameData.playerAvatarURL != string.Empty) AvatarURLLoaded();
+        ost.Play("MenuOst");
     }
 }
