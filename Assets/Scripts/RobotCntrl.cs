@@ -149,13 +149,14 @@ public class RobotCntrl : MonoBehaviour
                 targetPosition = trans.position - trans.right * 2f;
                 break;
             case Command.TurnRight:
-                //targetRotation = trans.rotation;
+                targetRotation = trans.rotation * Quaternion.Euler(0f, 0f, 90f);
                 break;
             case Command.TurnLeft:
+                targetRotation = trans.rotation * Quaternion.Euler(0f, 0f, -90f);
                 break;
             case Command.Pickup:
                 if (cubeLoaded != null) StopProgram();
-                if (Physics.Raycast(trans.position + Vector3.up * 0.2f, Vector3.right, out hit, 2f))
+                if (Physics.Raycast(trans.position + Vector3.up * 0.2f, transform.right, out hit, 2f))
                 {
                     if (hit.collider.CompareTag("Box"))
                     {
@@ -168,7 +169,7 @@ public class RobotCntrl : MonoBehaviour
                 break;
             case Command.Put:
                 if (cubeLoaded == null) StopProgram();
-                if (Physics.Raycast(trans.position + Vector3.up * 0.2f, Vector3.right, out hit, 2f))
+                if (Physics.Raycast(trans.position + Vector3.up * 0.2f, transform.right, out hit, 2f))
                 {
                     if (hit.collider.CompareTag("Button"))
                     {
