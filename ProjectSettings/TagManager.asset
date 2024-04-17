@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - CommandBlock
+  - Goal
+  - Obstacle
+  - Box
   layers:
   - Default
   - TransparentFX

@@ -24,7 +24,6 @@ public class LeaderboardCntrl : MonoBehaviour
     public void RefreshLeaderboard()
     {
         if (!isLoaded) return;
-
         if (lbList.Count > 0)
         {
             for (int i = 0; i < lbList.Count; i++)
@@ -34,6 +33,7 @@ public class LeaderboardCntrl : MonoBehaviour
             }
         }
 
+        isLoaded = false;
         refreshBtn.interactable = false;
         LoadLeaderboard();
     }
