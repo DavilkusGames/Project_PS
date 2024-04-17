@@ -7650,6 +7650,22 @@ PrefabInstance:
       propertyPath: m_text
       value: 0000
       objectReference: {fileID: 0}
+    - target: {fileID: 4569751209888193897, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f0a8d5f027e4aec4d95a56ae2a414ae8, type: 3}
+    - target: {fileID: 4569751209888193897, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569751209888193897, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569751209888193897, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5029328816578672836, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -7979,6 +7995,22 @@ PrefabInstance:
       propertyPath: m_text
       value: 0000
       objectReference: {fileID: 0}
+    - target: {fileID: 4569751209888193897, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9eec0152cdbfb4d44b25e91d4c0c5a48, type: 3}
+    - target: {fileID: 4569751209888193897, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569751209888193897, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569751209888193897, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5029328816578672836, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -8225,6 +8257,22 @@ PrefabInstance:
     - target: {fileID: 3877118509419683741, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
       propertyPath: m_text
       value: 0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569751209888193897, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2be8223c82a073b47b457977f40f3e1c, type: 3}
+    - target: {fileID: 4569751209888193897, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569751209888193897, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569751209888193897, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5029328816578672836, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
       propertyPath: m_Pivot.x

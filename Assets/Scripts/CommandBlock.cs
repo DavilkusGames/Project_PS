@@ -46,6 +46,7 @@ public class CommandBlock : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
         {
             GameObject newBlock = Instantiate(prefab, rectTransform.position, Quaternion.identity);
             newBlock.transform.SetParent(rectTransform.parent);
+            newBlock.transform.localScale = Vector3.one;
             CommandBlock cmdBlock = newBlock.GetComponent<CommandBlock>();
             cmdBlock.canvas = canvas;
             cmdBlock.cmd = cmd;

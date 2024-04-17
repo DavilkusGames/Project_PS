@@ -69,6 +69,10 @@ PrefabInstance:
       value: Box
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f61a98d21a760b84480d097f4d96ad05, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f61a98d21a760b84480d097f4d96ad05, type: 3}
       propertyPath: m_TagString
       value: Box
       objectReference: {fileID: 0}

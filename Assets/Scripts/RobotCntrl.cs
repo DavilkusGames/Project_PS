@@ -28,6 +28,9 @@ public class RobotCntrl : MonoBehaviour
     private Vector3 targetPosition;
     private Quaternion targetRotation;
 
+    private LayerMask cubeLayerMask;
+    private LayerMask buttonLayerMask;
+
     private void Start()
     {
         trans = GetComponent<Transform>();
@@ -35,6 +38,9 @@ public class RobotCntrl : MonoBehaviour
         anim = GetComponent<Animator>();
         targetPosition = transform.position;
         targetRotation = transform.rotation;
+
+        cubeLayerMask = LayerMask.GetMask("Box");
+        buttonLayerMask = LayerMask.GetMask("Button");
     }
 
     private void Update()
@@ -167,7 +173,7 @@ public class RobotCntrl : MonoBehaviour
                 break;
             case Command.Pickup:
                 if (cubeLoaded != null) StopProgram();
-                if (Physics.Raycast(trans.position + Vector3.up * 0.2f, transform.right, out hit, 2f))
+                if (Physics.Raycast(trans.position + Vector3.up * 0.2f, transform.right, out hit, 2f, cubeLayerMask))
                 {
                     if (hit.collider.CompareTag("Box"))
                     {
@@ -180,7 +186,7 @@ public class RobotCntrl : MonoBehaviour
                 break;
             case Command.Put:
                 if (cubeLoaded == null) StopProgram();
-                if (Physics.Raycast(trans.position + Vector3.up * 0.2f, transform.right, out hit, 2f))
+                if (Physics.Raycast(trans.position + Vector3.up * 0.2f, transform.right, out hit, 2f, buttonLayerMask))
                 {
                     if (hit.collider.CompareTag("Button"))
                     {
@@ -216,6 +222,7 @@ public class RobotCntrl : MonoBehaviour
             {
                 curLineIdVrtx++;
                 if (cmdId + 1 < program.Count) pathLine.positionCount++;
+                pathLine.SetPosition(curLineIdVrtx, trans.position + Vector3.up * 0.5f);
                 program[cmdId].LightState(false);
                 cmdId++;
             }

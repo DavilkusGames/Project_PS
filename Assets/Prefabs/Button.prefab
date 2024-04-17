@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2869209550096425583}
   - component: {fileID: 7877527575186665369}
   - component: {fileID: 1725464123521251441}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Button
   m_TagString: Button
   m_Icon: {fileID: 0}
@@ -104,8 +104,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1.7631595, z: 1}
-  m_Center: {x: 0, y: 0.38157856, z: 0}
+  m_Size: {x: 1, y: 1.3956887, z: 1}
+  m_Center: {x: 0, y: 0.19784302, z: 0}
 --- !u!114 &1725464123521251441
 MonoBehaviour:
   m_ObjectHideFlags: 0
