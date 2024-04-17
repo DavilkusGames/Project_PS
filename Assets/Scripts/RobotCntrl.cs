@@ -14,13 +14,16 @@ public class RobotCntrl : MonoBehaviour
 
     public Transform spawn;
     public LineRenderer pathLine;
+    public Transform boxParentPoint;
 
     private List<CommandBlock> program = new List<CommandBlock>();
     private Transform trans;
     private Rigidbody rb;
+    private Animator anim;
     private int cmdId = 0;
     private bool isExecuting = false;
     private int curLineIdVrtx = 1;
+    private GameObject cubeLoaded;
 
     private Vector3 targetPosition;
     private Quaternion targetRotation;
@@ -29,6 +32,7 @@ public class RobotCntrl : MonoBehaviour
     {
         trans = GetComponent<Transform>();
         rb = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>();
         targetPosition = transform.position;
         targetRotation = transform.rotation;
     }
@@ -83,6 +87,13 @@ public class RobotCntrl : MonoBehaviour
         pathLine.SetPosition(0, spawn.position+Vector3.up*0.2f);
         curLineIdVrtx = 1;
         GameManager.Instance.BlocksPanelState(false);
+
+        cubeLoaded = null;
+        GameObject[] boxes = GameObject.FindGameObjectsWithTag("Box");
+        foreach (var box in boxes) box.GetComponent<BoxCntrl>().Respawn();
+
+        GameObject[] buttons = GameObject.FindGameObjectsWithTag("Button");
+        foreach (var button in buttons) button.GetComponent<ButtonCntrl>().Reset();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -92,6 +103,10 @@ public class RobotCntrl : MonoBehaviour
             GameManager.Instance.LevelCompleted();
         }
         else if (other.CompareTag("Obstacle"))
+        {
+            StopProgram();
+        }
+        else if (other.CompareTag("Box") && other.gameObject != cubeLoaded)
         {
             StopProgram();
         }
@@ -111,8 +126,20 @@ public class RobotCntrl : MonoBehaviour
         GameManager.Instance.BlocksPanelState(true);
     }
 
-    private void ExecuteCmd(Command cmd)
+    public void BoxAttach()
     {
+        cubeLoaded.transform.SetParent(boxParentPoint);
+    }
+
+    public void BoxRelease()
+    {
+        cubeLoaded.transform.SetParent(null);
+        cubeLoaded = null;
+    }
+
+    private float ExecuteCmd(Command cmd)
+    {
+        RaycastHit hit;
         switch (cmd)
         {
             case Command.Forward:
@@ -127,10 +154,32 @@ public class RobotCntrl : MonoBehaviour
             case Command.TurnLeft:
                 break;
             case Command.Pickup:
+                if (cubeLoaded != null) StopProgram();
+                if (Physics.Raycast(trans.position + Vector3.up * 0.2f, Vector3.right, out hit, 2f))
+                {
+                    if (hit.collider.CompareTag("Box"))
+                    {
+                        cubeLoaded = hit.collider.gameObject;
+                        anim.Play("PickupBox");
+                        return 1f;
+                    }
+                }
+                else StopProgram();
                 break;
             case Command.Put:
+                if (cubeLoaded == null) StopProgram();
+                if (Physics.Raycast(trans.position + Vector3.up * 0.2f, Vector3.right, out hit, 2f))
+                {
+                    if (hit.collider.CompareTag("Button"))
+                    {
+                        anim.Play("PutBox");
+                        return 1f;
+                    }
+                }
+                else StopProgram();
                 break;
         }
+        return 0f;
     }
 
     private IEnumerator ExecuteProgram()
@@ -141,8 +190,8 @@ public class RobotCntrl : MonoBehaviour
         while (cmdId < program.Count && isExecuting)
         {
             program[cmdId].LightState(true);
-            ExecuteCmd(program[cmdId].cmd);
-            yield return new WaitForSeconds(cmdDelay);
+            float extraTime = ExecuteCmd(program[cmdId].cmd);
+            yield return new WaitForSeconds(cmdDelay + extraTime);
             trans.position = targetPosition;
             trans.rotation = targetRotation;
 
