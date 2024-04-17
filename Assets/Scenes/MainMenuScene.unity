@@ -722,7 +722,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 126323334}
   m_OnClick:
     m_PersistentCalls:
@@ -4355,6 +4355,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6211764471997091989, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 31a21759bae7a5a4a80ed8d726655c70, type: 3}
     - target: {fileID: 7072052847667378130, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
       propertyPath: m_Name
       value: levelPlash_4
@@ -4472,6 +4476,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6211764471997091989, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 31a21759bae7a5a4a80ed8d726655c70, type: 3}
     - target: {fileID: 7072052847667378130, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
       propertyPath: m_Name
       value: levelPlash_5
@@ -5294,6 +5302,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6211764471997091989, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 31a21759bae7a5a4a80ed8d726655c70, type: 3}
     - target: {fileID: 7072052847667378130, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
       propertyPath: m_Name
       value: levelPlash_3
@@ -7718,6 +7730,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6211764471997091989, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 31a21759bae7a5a4a80ed8d726655c70, type: 3}
     - target: {fileID: 7072052847667378130, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
       propertyPath: m_Name
       value: levelPlash_2
@@ -8043,6 +8059,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6211764471997091989, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 31a21759bae7a5a4a80ed8d726655c70, type: 3}
     - target: {fileID: 7072052847667378130, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
       propertyPath: m_Name
       value: levelPlash_1
@@ -8284,6 +8304,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5029328816578672836, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6211764471997091989, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 31a21759bae7a5a4a80ed8d726655c70, type: 3}
+    - target: {fileID: 6211764471997091989, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
+      propertyPath: m_Color.b
+      value: 0.031372547
+      objectReference: {fileID: 0}
+    - target: {fileID: 6211764471997091989, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6211764471997091989, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}
+      propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7072052847667378130, guid: 191cfc9ae4e6e8a46bf68f7eb95e3085, type: 3}

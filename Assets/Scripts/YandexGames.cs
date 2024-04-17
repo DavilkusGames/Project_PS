@@ -45,6 +45,9 @@ public class YandexGames : Singleton<YandexGames>
     private static extern void GetPlayerAvatarURL();
 
     [DllImport("__Internal")]
+    private static extern void GetLeaderboard();
+
+    [DllImport("__Internal")]
     private static extern void AuthRequest();
 
     [DllImport("__Internal")]
@@ -228,6 +231,21 @@ public class YandexGames : Singleton<YandexGames>
         GameData.playerAvatarURL = playerAvatarURL;
         Debug.Log("Player avatar URL: '" + GameData.playerAvatarURL + "'");
         MainMenuManager.Instance?.AvatarURLLoaded();
+    }
+
+    public void GetLeaderboardRequest()
+    {
+        if (Application.isEditor || !IsInit)
+        {
+            Debug.Log("Leaderboard download failed");
+            return;
+        }
+        GetLeaderboard();
+    }
+
+    public void LeaderboardDownloaded(string res)
+    {
+        Debug.Log("LB: " + res.ToString());
     }
 
     private IEnumerator WaitForSDKInit()

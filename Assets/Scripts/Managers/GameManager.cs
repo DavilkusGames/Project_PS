@@ -33,9 +33,11 @@ public class GameManager : Singleton<GameManager>
 
     public void LevelCompleted()
     {
+        levelCompleted = true;
         if (GameData.data.cLevelId == LvlId) GameData.data.cLevelId++;
         else scoreForLvl = 0;
         GameData.data.score += scoreForLvl;
+        YandexGames.Instance.SaveToLeaderboard(GameData.data.score);
         plusScoreTxt.text = "+ " + scoreForLvl.ToString();
         LanguageManager.Instance.SetAdditionalText(8, ' ' + GameData.data.score.ToString("000000"));
         canvasAnim.Play("LevelCompletedAnim");
@@ -44,6 +46,7 @@ public class GameManager : Singleton<GameManager>
 
     public void BlocksPanelState(bool state)
     {
+        if (levelCompleted) return;
         canvasAnim.Play(state ? "ShowBlocks" : "HideBlocks");
     }
 

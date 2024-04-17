@@ -42,7 +42,7 @@ public class LeaderboardCntrl : MonoBehaviour
     {
         loadingIcon.SetActive(false);
         refreshBtn.interactable = true;
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 15; i++)
         {
             GameObject lbPlash = Instantiate(lbPlashPrefab);
             lbPlash.transform.SetParent(scrollViewParent);
@@ -56,5 +56,6 @@ public class LeaderboardCntrl : MonoBehaviour
     private void LoadLB()
     {
         LBLoaded();
+        YandexGames.Instance.GetLeaderboardRequest();
     }
 }

@@ -65,6 +65,7 @@ public class RobotCntrl : MonoBehaviour
         }
         program.Clear();
         executeBtn.interactable = false;
+        ResetEverything();
     }
 
     public void StartProgram()
@@ -75,6 +76,12 @@ public class RobotCntrl : MonoBehaviour
         stopBtn.gameObject.SetActive(true);
         clearBtn.interactable = false;
         foreach (CommandBlock command in program) { command.LockState(true); }
+        GameManager.Instance.BlocksPanelState(false);
+        ResetEverything();
+    }
+
+    private void ResetEverything()
+    {
         rb.useGravity = false;
         rb.velocity = Vector3.zero;
 
@@ -84,9 +91,8 @@ public class RobotCntrl : MonoBehaviour
         targetRotation = trans.rotation;
 
         pathLine.positionCount = 2;
-        pathLine.SetPosition(0, spawn.position+Vector3.up*0.2f);
+        pathLine.SetPosition(0, spawn.position + Vector3.up * 0.2f);
         curLineIdVrtx = 1;
-        GameManager.Instance.BlocksPanelState(false);
 
         cubeLoaded = null;
         GameObject[] boxes = GameObject.FindGameObjectsWithTag("Box");
@@ -100,6 +106,11 @@ public class RobotCntrl : MonoBehaviour
     {
         if (other.CompareTag("Goal"))
         {
+            GameObject[] btns = GameObject.FindGameObjectsWithTag("Button");
+            for (int i = 0; i < btns.Length; i++)
+            {
+                if (!btns[i].GetComponent<ButtonCntrl>().IsEnabled()) return;
+            }
             GameManager.Instance.LevelCompleted();
         }
         else if (other.CompareTag("Obstacle"))

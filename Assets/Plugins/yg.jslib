@@ -104,6 +104,11 @@
     myGameInstance.SendMessage("--YANDEX_GAMES--", "SetPlayerAvatarURL", player.getPhoto("medium"));
   },
 
+  GetLeaderboard : function () {
+    lb.getLeaderboardEntries('psscore')
+      .then(res => myGameInstance.SendMessage("--YANDEX_GAMES--", "LeaderboardDownloaded", JSON.stringify(res)));
+  },
+
   AuthRequest : function () {
      if (player.getMode() === 'lite') {
             // Игрок не авторизован.

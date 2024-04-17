@@ -12,6 +12,11 @@ public class ButtonCntrl : MonoBehaviour
         meshRenderer.material = mats[0];
     }
 
+    public bool IsEnabled()
+    {
+        return isEnabled;
+    }
+
     private void Start()
     {
         meshRenderer = GetComponent<MeshRenderer>();
