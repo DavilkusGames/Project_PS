@@ -8,7 +8,6 @@ using UnityEngine.UI;
 
 public class MainMenuManager : Singleton<MainMenuManager>
 {
-    public TMP_Text playerNameTxt;
     public RawImage playerAvatarImg;
     public GameObject authBtn;
     public GameObject scoreTxtObj;
@@ -17,8 +16,25 @@ public class MainMenuManager : Singleton<MainMenuManager>
     public TMP_Text verTxt;
     public SelectLvlBtn[] selectLvlBtns;
 
+    public Toggle musicToggle;
+    public Toggle soundsToggle;
+
+    public BlackPanel blackPanel;
     public SourceAudio ost;
-    private bool canvasAnimPlaying = false;
+    public float ostVol = 1f;
+    public float ostVolI = 0.2f;
+    private float ostProgress = 0f;
+    private bool unsavedOptions = false;
+
+    private void Update()
+    {
+        if (ostProgress < 1f)
+        {
+            ostProgress += ostVolI * Time.deltaTime;
+            ostProgress = Mathf.Clamp(ostProgress, 0f, 1f);
+            ost.Volume = Mathf.Lerp(0f, ostVol, ostProgress);
+        }
+    }
 
     public void DataLoaded()
     {
@@ -40,11 +56,15 @@ public class MainMenuManager : Singleton<MainMenuManager>
         }
 
         if (YandexGames.IsAuth) Authorized();
+        if (GameData.data.musicOn) ost.Play("MenuOst");
+
+        musicToggle.isOn = GameData.data.musicOn;
+        soundsToggle.isOn = GameData.data.soundsOn;
     }
 
     public void NameLoaded()
     {
-        playerNameTxt.text = GameData.playerName;
+        LanguageManager.Instance.SetText(4, GameData.playerName, GameData.playerName);
     }
 
     public void SelectLevel(int levelId)
@@ -75,11 +95,35 @@ public class MainMenuManager : Singleton<MainMenuManager>
         YandexGames.Instance.AuthBtnRequest();
     }
 
+    public void SetMusicO(bool isMusic)
+    {
+        GameData.data.musicOn = isMusic;
+        unsavedOptions = true;
+
+        if (!isMusic) ost.Stop();
+        else ost.Play("MenuOst");
+    }
+
+    public void SetSoundO(bool isSound)
+    {
+        GameData.data.soundsOn = isSound;
+        unsavedOptions = true;
+    }
+
+    public void SaveUnsavedOptions()
+    {
+        if (unsavedOptions)
+        {
+            GameData.SaveData();
+            unsavedOptions = false;
+        }
+    }
+
     public void Authorized()
     {
         authBtn.SetActive(false);
         scoreTxtObj.SetActive(true);
-        LanguageManager.Instance.SetAdditionalText(6, ' ' + GameData.data.score.ToString());
+        LanguageManager.Instance.SetAdditionalText(6, ' ' + GameData.data.score.ToString("000000"));
     }
 
     public void PromoActive()
@@ -111,6 +155,7 @@ public class MainMenuManager : Singleton<MainMenuManager>
         verTxt.text = "v." + Application.version;
         if (GameData.playerName != string.Empty) NameLoaded();
         if (GameData.playerAvatarURL != string.Empty) AvatarURLLoaded();
-        ost.Play("MenuOst");
+
+        blackPanel.FadeOut(null, 2f);
     }
 }

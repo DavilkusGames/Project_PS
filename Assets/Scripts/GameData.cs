@@ -12,6 +12,9 @@ public class GameData
     // SAVE DATA
     public int cLevelId = 0;
     public int score = 0;
+    public int langId = 0;
+    public bool musicOn = true;
+    public bool soundsOn = true;
     public string prevGameVersion = string.Empty;
     // =======================
 
@@ -29,6 +32,7 @@ public class GameData
         {
             data = new GameData();
             data.prevGameVersion = Application.version.ToString();
+            data.langId = YandexGames.IsRus ? 0 : 1;
             dataLoaded = true;
             SaveData();
             Debug.Log("Local saved data not found. New save created.");

@@ -34,6 +34,14 @@ public class LanguageManager : Singleton<LanguageManager>
         }
     }
 
+    public void SetText(int id, string rusTxt, string engTxt)
+    {
+        translatedTexts[id].rusStr = rusTxt;
+        translatedTexts[id].engStr = engTxt;
+        translatedTexts[id].txt.text = (IsRus ? translatedTexts[id].rusStr : translatedTexts[id].engStr) +
+            translatedTexts[id].additionalTxt;
+    }
+
     public void SetAdditionalText(int id, string txt)
     {
         translatedTexts[id].additionalTxt = txt;

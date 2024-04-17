@@ -9,6 +9,7 @@ public class GameManager : Singleton<GameManager>
     public TMP_Text levelLabelTxt;
     public Animator canvasAnim;
     public SourceAudio ost;
+    public BlackPanel blackPanel;
 
     public static int LvlId = 0;
 
@@ -18,6 +19,7 @@ public class GameManager : Singleton<GameManager>
     {
         Application.targetFrameRate = 60;
         levelLabelTxt.text = LvlId.ToString("0000");
+        blackPanel.FadeOut(null, 2f);
         ost.Play("GameOst");
     }
 
@@ -27,6 +29,11 @@ public class GameManager : Singleton<GameManager>
     }
 
     public void ToMainMenu()
+    {
+        blackPanel.FadeIn(LoadMainMenu, 2f);
+    }
+
+    public void LoadMainMenu()
     {
         SceneManager.LoadScene(0);
     }
