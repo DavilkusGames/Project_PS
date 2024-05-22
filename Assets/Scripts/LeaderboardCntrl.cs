@@ -1,6 +1,14 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
+[Serializable]
+public class LeaderboardEntry
+{
+    public string name;
+    public int score;
+}
 
 public class LeaderboardCntrl : MonoBehaviour
 {
@@ -8,6 +16,8 @@ public class LeaderboardCntrl : MonoBehaviour
     public Transform scrollViewParent;
     public Button refreshBtn;
     public GameObject loadingIcon;
+
+    public LeaderboardEntry[] lbEntries;
 
     private List<GameObject> lbList = new List<GameObject>();
     private bool isLoaded = false;
@@ -42,13 +52,13 @@ public class LeaderboardCntrl : MonoBehaviour
     {
         loadingIcon.SetActive(false);
         refreshBtn.interactable = true;
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < lbEntries.Length; i++)
         {
             GameObject lbPlash = Instantiate(lbPlashPrefab);
             lbPlash.transform.SetParent(scrollViewParent);
             lbPlash.transform.localPosition = Vector3.zero;
             lbPlash.transform.localScale = Vector3.one;
-            lbPlash.GetComponent<LeaderboardPlash>().Init("TEST", 31151, (i == 0));
+            lbPlash.GetComponent<LeaderboardPlash>().Init(lbEntries[i].name, lbEntries[i].score, (i == 0));
             lbList.Add(lbPlash);
         }
     }
@@ -56,6 +66,6 @@ public class LeaderboardCntrl : MonoBehaviour
     private void LoadLB()
     {
         LBLoaded();
-        YandexGames.Instance.GetLeaderboardRequest();
+        //YandexGames.Instance.GetLeaderboardRequest();
     }
 }
