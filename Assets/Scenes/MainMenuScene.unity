@@ -5991,21 +5991,23 @@ MonoBehaviour:
   loadingIcon: {fileID: 205658965}
   lbEntries:
   - name: "\u041A\u0438\u0440\u0438\u043B\u043B \u0411\u0443\u0442\u0430\u0440\u0435\u0432"
-    score: 2500
+    score: 2000
   - name: "<b>\u041F\u0410\u0412\u0415\u041B</b>"
     score: 2000
-  - name: 1Pixel Games
+  - name: glinomesfargus
     score: 2000
-  - name: "\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C
-      \u0441\u043A\u0440\u044B\u0442"
-    score: 1700
-  - name: "\u041D\u0438\u043A\u043E\u043B\u0430\u0439 \u0421\u0435\u043B\u0435\u0437\u043D\u0435\u0432"
+  - name: "<i>\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C
+      \u0441\u043A\u0440\u044B\u0442</i>"
+    score: 2000
+  - name: 1PixelGames
+    score: 2000
+  - name: "\u041C\u0430\u043A\u0441\u0438\u043C\u043E\u0432 \u041C\u0438\u0445\u0430\u0438\u043B"
     score: 1000
-  - name: SvidetelK
-    score: 500
-  - name: "\u0421\u0410\u0412\u0412\u041E\u0413\u0423\u0421"
-    score: 500
+  - name: "\u0421\u0435\u043B\u0435\u0437\u043D\u0435\u0432 \u041D\u0438\u043A\u043E\u043B\u0430\u0439"
+    score: 1000
   - name: "\u0412\u043B\u0430\u0434 \u041F\u0435\u0442\u0440\u043E\u0432"
+    score: 500
+  - name: "\u0410\u043B\u0435\u043A\u0441\u0435\u0439 \u0420\u0430\u0445\u043C\u0430\u0442\u043E\u0432"
     score: 500
 --- !u!1 &1550380866
 GameObject:
